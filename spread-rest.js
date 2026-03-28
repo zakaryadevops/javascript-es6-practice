@@ -10,3 +10,4 @@ function multiply(multiplier , ...numbers)
 
 console.log(newUser);
 console.log(multiply(2 ,1,2,3,4));
+
