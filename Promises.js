@@ -109,15 +109,44 @@
 
 // random();
 
-const promise = new Promise((resolve, reject) => {
-    console.log("A");
-    resolve("B");
-});
+// const promise = new Promise((resolve, reject) => {
+//     console.log("A");
+//     resolve("B");
+// });
 
-console.log("C");
+// console.log("C");
 
-promise.then((data) => {
-    console.log(data);
-});
+// promise.then((data) => {
+//     console.log(data);
+// });
 
-console.log("D");
+// console.log("D");
+
+const p1 = new Promise(resolve => setTimeout(() => resolve("First done"), 1000));
+const p2 = new Promise(resolve => setTimeout(() => resolve("Second done"), 2000));
+
+Promise.all([p1, p2])
+  .then(results => console.log("All resolved:", results))
+  .catch(err => console.error("Error:", err));
+
+
+const p3 = new Promise(resolve => setTimeout(() => resolve("Success!"), 1500));
+const p4 = new Promise((_, reject) => setTimeout(() => reject("Failed!"), 1000));
+
+Promise.allSettled([p3, p4])
+  .then(results => console.log("All settled:", results));
+
+const p5 = new Promise(resolve => setTimeout(() => resolve("Fast one"), 500));
+const p6 = new Promise(resolve => setTimeout(() => resolve("Slow one"), 2000));
+
+Promise.race([p5, p6])
+  .then(result => console.log("Race winner:", result))
+  .catch(err => console.error("Race error:", err));
+
+const p7 = new Promise((_, reject) => setTimeout(() => reject("Rejected 1"), 500));
+const p8 = new Promise(resolve => setTimeout(() => resolve("Resolved 2"), 1000));
+const p9 = new Promise((_, reject) => setTimeout(() => reject("Rejected 3"), 1500));
+
+Promise.any([p7, p8, p9])
+  .then(result => console.log("Any result:", result))
+  .catch(err => console.error("All failed:", err));
