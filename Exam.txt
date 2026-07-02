@@ -1,88 +1,130 @@
-1-undefined
-  undefined
-  20
-10
-in javascript var data-type is hoisted meaning it has been created in the memory but has not assigned the real value to it yet when execution starts the first console is trying to access the var a that is there in memory but is assigned with the value of undefined then a becomes 10 moves inside function this function have it own local var a that is different from a outside because it has been redeclared inside function so inside function the first console looks for the value of a inside function first so because it is written after so it will also print undefined because till then a is also not assigned value insde the function after var a becomes 20 this a variable is the local variable of the function the next console when access a will print 20 after function compeletes teh var a outside was assigned the value of 10 so it will print 10
-------------------------------------------------------------------------------------------------------------------------------------------
-2-const student = {
-	name : "ALi",
-	marks : [80,90,70]
-	};
-const TotalMarks = student.marks.reduce((acc , num) => acc += num , 0);
-const avgMarks = TotalMarks/student.marks.length;
-const newStudent = {
-	...student,
-	grade : "A"};
-console.log(newStudent);
-console.log(`The average Marks are : ${avgMarks} Scoring ${newstudent.grade} grade`)
-------------------------------------------------------------------------------------------------------------------------------------------
-3-const nums = [2, 5, 8, 9, 12, 15];
-  const evenNum = nums.filter(n => n % 2 == 0 );
-  console.log(evenNum.map(e = > e *3));
-------------------------------------------------------------------------------------------------------------------------------------------
-4-const user = {
-    name: "Zakarya",
-    age: 21,
-    city: "Rawalpindi"
-};
+const students = [
+    { name: "Ali", marks: 85 },
+    { name: "Ahmed", marks: 42 },
+    { name: "Sara", marks: 91 },
+    { name: "John", marks: 65 },            
+    { name: "Ayesha", marks: 39 }
+];
 
-const[name , city] = user;
+const PassedStudents = students.filter(s => s.marks >= 50);
 
-console.log(name + " lives in "+ city);
-------------------------------------------------------------------------------------------------------------------------------------------
-5- when ... is used as this const copy = [...arr]; it is then a spread operator as it used to copy the contents of one array or object into another not copy the array or object only its content then it is used like this 
-but if it is used like this function sum(...numbers) {} meaning if passed as an argument then it is called rest operator what it does is that u pass multiple numbers or string, char array , objects it pass all of these things anyone u want it will craete an array of those contents u passed into one singular array and then that array can be used and manipulated inside that function
-------------------------------------------------------------------------------------------------------------------------------------------
-6- function countVowels(str){
-    let count = 0 ;
-    const string = str.toLowerCase();
-    for(int i =0 ; i <string.length ; i++)
-    {
-        if(string[i] === 'a' || string[i] === 'e' || string[i] === 'i' || string[i] === 'o' || string[i] === 'u'){
-            count ++;
+const Names = PassedStudents.map(s => s.name);
+
+const sortedNames = Names.sort();
+
+console.log(sortedNames);
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const cart = [
+    { product: "Laptop", price: 1000, quantity: 2 },
+    { product: "Mouse", price: 25, quantity: 3 },
+    { product: "Keyboard", price: 75, quantity: 1 }
+];
+
+const totalPrice = cart.reduce((total, item) => {
+    total += item.price * item.quantity;
+    return total;
+}, 0);
+
+console.log(totalPrice);
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function countCharacters(str){
+    const charCount = {};
+    for(let i = 0 ; i <str.length ; i++){
+        if(!charCount[str[i]]){
+            charCount[str[i]] = 0;
         }
+        charCount[str[i]]++;
     }
-    console.log(count);
-} 
-------------------------------------------------------------------------------------------------------------------------------------------
-7- this is the first one I am a little less confident as functions as key value pairs inside objects are little confusing but according to my knowlegde the output should be :
-john
-john
-because const greet = person.greet; this line got the greet function inside person object and stored in greet variable that also became a function now that has the same body as the function inside person object so it will print john 
-the second person.greet() we are calling directly the function inside person object using .(dot) we are telling the refrence that call function that is inside person object
-------------------------------------------------------------------------------------------------------------------------------------------
-8- closures are functions inside another function crates a lexial enviournment for the inner function as it has only has access to those variables and content also protects some variable to be changed the outer function encapsultaes those variables only the inner function can use and manipulate them 
-Example :
-function outer()
-{
-    let count = 1;
-    const name = "Zakarya";
-    function inner(){
-        if(this.name === "Zakarya" ){
-            count ++;
+    return charCount;
+}
+
+console.log(countCharacters("Javascript"));
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const numbers = [4,2,7,2,4,9,1,9];
+
+for(let i = 0; i < numbers.length; i++){
+    for(let j = i + 1; j < numbers.length; j++){
+        if(numbers[i] === numbers[j]){
+            numbers.splice(j, 1);
         }
-        console.log(`${this.name} has got ${this.count} points`)
     }
 }
 
-inner();
-now u can see here the count and name are protected no one can change them excpet for the inner function that has access to it so it craetes a lexical scope for the inner function
-well I just forgot the closures a little bit but this is all much I remember
-------------------------------------------------------------------------------------------------------------------------------------------
-9-const products = [
-    { name: "Laptop", price: 900 },
-    { name: "Phone", price: 400 },
-    { name: "Tablet", price: 600 },
-    { name: "Monitor", price: 300 }
+console.log(numbers);
+
+// do the same thing using filter method
+
+const uniqueNumbers = numbers.filter((num, index) => {
+    return numbers.indexOf(num) === index;
+});
+console.log(uniqueNumbers);
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const products = [
+    {name:"Laptop",price:1000},
+    {name:"Gaming Mouse",price:50},
+    {name:"Phone",price:600},
+    {name:"Monitor",price:250}
 ];
 
+function searchProductsUsingName(searchTerm){
+    return products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+}
 
-const expensiveProducts = products.filter(p => p.price > 500 );
-const Names = products.map(N => N.name);
-const SortedNames = Names.sort();
+console.log(searchProductsUsingName("Mo"));
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const nums = [2,4,6,8];
 
-console.log(expensiveProducts);
-console.log(Names);
-console.log(SortedNames);
-------------------------------------------------------------------------------------------------------------------------------------------
-10-well I havent used ES5 so I dont even know what has been updated or major updates but what I know is that ES6 is very frineldy and eas to write the syntax is way easer evrything is more clean complex concepts are easy to implement becuase of more built-in functions which helps a lot this is all I have got learing it for the first time 
+const result = nums
+.filter(num => {
+    return num > 4;
+})
+.map(num => {
+     num*2;
+});
+
+console.log(result);
+
+the return is written in filter function that was missing i added it as filter function returns the values that matches the condition
+while map function maps every element so it knows it is to apply on each index there is no return in map function
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const users = [
+{
+id:1,
+name:"Ali",
+isActive:true
+},
+{
+id:2,
+name:"Sara",
+isActive:false
+},
+{
+id:3,
+name:"Ahmed",
+isActive:true
+}
+];
+
+function getActiveUsers(users){
+    return users.filter(user => user.isActive);
+}
+
+console.log(getActiveUsers(users));
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function groupbyParity(numbers){
+    const grouped = numbers.reduce((acc, num) => {
+        const key = num % 2 === 0 ? 'even' : 'odd';
+        if (!acc[key]) {
+            acc[key] = [];
+        }
+        acc[key].push(num);
+        return acc;
+    }, {});
+    return grouped;   
+}
+
+console.log(groupbyParity([1,2,3,4,5,6]));
